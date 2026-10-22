@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Now</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="dashboard-container">
+    <div class="inner-wrapper">
+
+      <!-- ================= HEADER ================= -->
+      <header class="header">
+        <a class="logo" href="./">
+          <img src="assets/images/logo.svg" alt="Weather Now">
+        </a>
+
+        <div class="units">
+          <button class="units-btn" id="units-btn" aria-haspopup="menu" aria-expanded="false">
+            <img src="assets/images/icon-units.svg" alt="">
+            <span>Units</span>
+            <img src="assets/images/icon-dropdown.svg" alt="">
+          </button>
+
+          <div class="units-menu" id="units-menu" role="menu" hidden>
+            <button class="menu-item" id="unit-system" type="button" role="menuitem"></button>
+
+            <p class="menu-label">Temperature</p>
+            <button class="menu-item" type="button" role="menuitemradio" data-unit="temp" data-value="celsius">Celsius (°C)</button>
+            <button class="menu-item" type="button" role="menuitemradio" data-unit="temp" data-value="fahrenheit">Fahrenheit (°F)</button>
+
+            <p class="menu-label">Wind Speed</p>
+            <button class="menu-item" type="button" role="menuitemradio" data-unit="wind" data-value="kmh">km/h</button>
+            <button class="menu-item" type="button" role="menuitemradio" data-unit="wind" data-value="mph">mph</button>
+
+            <p class="menu-label">Precipitation</p>
+            <button class="menu-item" type="button" role="menuitemradio" data-unit="precip" data-value="mm">Millimeters (mm)</button>
+            <button class="menu-item" type="button" role="menuitemradio" data-unit="precip" data-value="inch">Inches (in)</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- ================= ERROR VIEW (replaces everything below the header) ================= -->
+      <section class="error-view" id="error-view" hidden>
+        <img src="assets/images/icon-error.svg" alt="">
+        <h2>Something went wrong</h2>
+        <p>We couldn't connect to the server (API error). Please try again in a few moments.</p>
+        <button class="retry-btn" id="retry-btn" type="button">
+          <img src="assets/images/icon-retry.svg" alt="">
+          Retry
+        </button>
+      </section>
+
+      <!-- ================= HERO / SEARCH ================= -->
+      <section class="hero" id="hero">
+        <h1>How's the sky looking today?</h1>
+
+        <div class="search-bar">
+          <div class="search-field">
+            <div class="input-wrapper">
+              <img src="assets/images/icon-search.svg" alt="">
+              <input id="search-input" type="text" placeholder="Search for a place..." autocomplete="off" aria-label="Search for a place">
+            </div>
+            <ul class="suggestions" id="suggestions" hidden></ul>
+          </div>
+          <button class="btn-primary" id="search-btn" type="button">Search</button>
+        </div>
+      </section>
+
+      <!-- ================= EMPTY VIEW ================= -->
+      <p class="empty-view" id="empty-view" hidden>No search result found!</p>
+
+      <!-- ================= MAIN CONTENT ================= -->
+      <div class="content-grid" id="content">
+
+        <!-- LEFT COLUMN -->
+        <div class="left-col">
+
+          <section class="current-weather-card" id="current-card">
+            <div class="current-info">
+              <h2 id="city">Berlin, Germany</h2>
+              <p id="date"></p>
+            </div>
+            <div class="current-temp">
+              <img src="assets/images/icon-sunny.webp" alt="" class="main-icon" id="main-icon">
+              <span class="temp" id="temp">--°</span>
+            </div>
+            <p class="loading-text" id="loading-text">
+              <span class="dots"><i></i><i></i><i></i></span>
+              Loading...
+            </p>
+          </section>
+
+          <div class="stats-row">
+            <div class="stat-card">
+              <p class="stat-label">Feels Like</p>
+              <p class="stat-value" id="feels">—</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-label">Humidity</p>
+              <p class="stat-value" id="humidity">—</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-label">Wind</p>
+              <p class="stat-value" id="wind">—</p>
+            </div>
+            <div class="stat-card">
+              <p class="stat-label">Precipitation</p>
+              <p class="stat-value" id="precip">—</p>
+            </div>
+          </div>
+
+          <section class="daily-forecast">
+            <h3>Daily forecast</h3>
+            <div class="daily-cards" id="daily"></div>
+          </section>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <aside class="right-col">
+          <section class="hourly-forecast">
+            <div class="hourly-header">
+              <h3>Hourly forecast</h3>
+              <select id="day-select" aria-label="Choose a day"></select>
+            </div>
+            <div class="hourly-list" id="hourly"></div>
+          </section>
+        </aside>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
